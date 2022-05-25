@@ -52,8 +52,8 @@ namespace QuanLiSanBong
                         int id = unchecked((int)Convert.ToInt64(reader.GetValue(0)));
                         textBox1.Text = id.ToString();
                         textBox2.Text = reader.GetString(1).ToString();
-                        textBox3.Text = reader.GetValue(2).ToString();
-                        textBox7.Text = reader.GetValue(3).ToString();
+                        textBox3.Text = reader.GetValue(3).ToString();
+                        textBox7.Text = reader.GetValue(2).ToString();
                         textBox6.Text = reader.GetValue(4).ToString();
                         textBox5.Text = reader.GetValue(5).ToString();
 

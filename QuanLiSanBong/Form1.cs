@@ -97,10 +97,10 @@ namespace QuanLiSanBong
         {
             DateTime iDate = DateTime.Today;
             string strDate = iDate.ToString("yyyyMMdd");
-            string query = String.Format("select [DatSan].idSan, TenSan, SoSan, Ngay, TimeStart, TimeEnd, Gia, SDT_Datsan, TenDoi1, IdDoiBong1, TenDoi2, IdDoiBong2  from [DatSan] inner join [SanBong] on DatSan.IdSan = SanBong.IdSan  where [DatSan].IdSan = '{0}' Order by Ngay, TimeStart", ClassMain.nvStatic.idSanbong);
-
+            string query = String.Format("select idDatsan, SoSan, Ngay, TimeStart, TimeEnd, Gia, SDT_Datsan,idDoibong1, Name  , phone, IdDoiBong2  from (select [DatSan].idDatsan, SoSan, Ngay, TimeStart, TimeEnd, Gia, SDT_Datsan, IdDoiBong1,  IdDoiBong2  from [DatSan] inner join [SanBanhNho] on DatSan.idSannho = SanBanhNho.idSannho  where [SanBanhNho].idSan = '{0}' ) as tb_show inner join DoiBong on [tb_show].IdDoiBong1 = [DoiBong].idDoibong", ClassMain.nvStatic.idSanbong);
+            string query2 = String.Format("select idDatsan, SoSan, Ngay, TimeStart, TimeEnd, Gia, SDT_Datsan,idDoibong1, tb.Name  as [Tên đội 1], tb.phone as[Liên hệ] , IdDoiBong2, [DoiBong].Name as  [Tên đội 2], [DoiBong].phone as[Liên hệ] from ({0}) as tb inner join [DoiBong]  on tb.IdDoiBong2 = [DoiBong].idDoibong", query);
             conn.Open();
-            SqlCommand com = new SqlCommand(query, conn);
+            SqlCommand com = new SqlCommand(query2, conn);
             com.CommandType = CommandType.Text;
             SqlDataAdapter da = new SqlDataAdapter(com);
             DataTable dt = new DataTable();
@@ -170,6 +170,7 @@ namespace QuanLiSanBong
                 com2.CommandType = CommandType.Text;
                 com2.ExecuteNonQuery();
                 MessageBox.Show("Thêm thành công");
+                
                 button1.Enabled = false;
             }    
             else
@@ -195,14 +196,14 @@ namespace QuanLiSanBong
                 DataGridViewRow row = this.dataGridView1.Rows[e.RowIndex];
                 if(row.Cells[0].Value.ToString()!="")
                 {
-                    comboBox9.Text = row.Cells[2].Value.ToString();
-                    textBox4.Text = row.Cells[9].Value.ToString();
+                    comboBox9.Text = row.Cells[1].Value.ToString();
+                    textBox4.Text = row.Cells[7].Value.ToString();
                     textBox1.Text = row.Cells[8].Value.ToString();
-                    textBox5.Text = row.Cells[11].Value.ToString();
+                    textBox5.Text = row.Cells[9].Value.ToString();
                     textBox2.Text = row.Cells[10].Value.ToString();
-                    textBox6.Text = row.Cells[7].Value.ToString();
+                    textBox6.Text = row.Cells[6].Value.ToString();
                     //textBox9.Text = row.Cells[6].Value.ToString();
-                    string[] x = row.Cells[3].Value.ToString().Substring(0, 10).Split('/');
+                    string[] x = row.Cells[2].Value.ToString().Substring(0, 10).Split('/');
                     int day = 0, month = 0, year = 0;
                     try
                     {
@@ -215,13 +216,13 @@ namespace QuanLiSanBong
 
                     }
                     dateTimePicker2.Value = new DateTime(year, month, day);
-                    string[] y = row.Cells[4].Value.ToString().Split(':');
+                    string[] y = row.Cells[3].Value.ToString().Split(':');
 
                     comboBox1.SelectedIndex = comboBox1.FindStringExact(y[0]);
                     
 
                         comboBox3.SelectedIndex = comboBox3.FindStringExact(y[1]);
-                    string[] z = row.Cells[5].Value.ToString().Split(':');
+                    string[] z = row.Cells[4].Value.ToString().Split(':');
 
 
 
@@ -235,6 +236,8 @@ namespace QuanLiSanBong
                     string strDate = dateTimePicker2.Value.ToString("dd/MM/yyyy");
                     string start = comboBox1.Text + ":" + comboBox3.Text;
                     string end = comboBox2.Text + ":" + comboBox4.Text;
+                    //        public DatSan(String idDatSan, String idSanNho, String Ngay, String TimeStart, String TimeEnd, String Gia, String TenDoi1, String IdDoiBong1, String TenDoi2, String IdDoiBong2, String SDT_Datsan)
+
                     ClassMain.datSanstc = new Object.DatSan(textBox7.Text, comboBox9.Text, strDate, start, end, textBox9.Text, textBox1.Text, textBox4.Text, textBox2.Text, textBox5.Text, textBox6.Text);
                     
 
