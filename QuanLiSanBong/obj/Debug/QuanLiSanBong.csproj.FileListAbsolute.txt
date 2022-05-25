@@ -1,0 +1,13 @@
+C:\Users\ASUS\Documents\Học kì 6 Năm 3\C# database\Kiểm Tra Cuối Kì\Quanlisanbong\QuanLiSanBong\bin\Debug\QuanLiSanBong.exe.config
+C:\Users\ASUS\Documents\Học kì 6 Năm 3\C# database\Kiểm Tra Cuối Kì\Quanlisanbong\QuanLiSanBong\bin\Debug\QuanLiSanBong.exe
+C:\Users\ASUS\Documents\Học kì 6 Năm 3\C# database\Kiểm Tra Cuối Kì\Quanlisanbong\QuanLiSanBong\bin\Debug\QuanLiSanBong.pdb
+C:\Users\ASUS\Documents\Học kì 6 Năm 3\C# database\Kiểm Tra Cuối Kì\Quanlisanbong\QuanLiSanBong\obj\Debug\QuanLiSanBong.csproj.AssemblyReference.cache
+C:\Users\ASUS\Documents\Học kì 6 Năm 3\C# database\Kiểm Tra Cuối Kì\Quanlisanbong\QuanLiSanBong\obj\Debug\QuanLiSanBong.Form1.resources
+C:\Users\ASUS\Documents\Học kì 6 Năm 3\C# database\Kiểm Tra Cuối Kì\Quanlisanbong\QuanLiSanBong\obj\Debug\QuanLiSanBong.Properties.Resources.resources
+C:\Users\ASUS\Documents\Học kì 6 Năm 3\C# database\Kiểm Tra Cuối Kì\Quanlisanbong\QuanLiSanBong\obj\Debug\QuanLiSanBong.csproj.GenerateResource.cache
+C:\Users\ASUS\Documents\Học kì 6 Năm 3\C# database\Kiểm Tra Cuối Kì\Quanlisanbong\QuanLiSanBong\obj\Debug\QuanLiSanBong.csproj.CoreCompileInputs.cache
+C:\Users\ASUS\Documents\Học kì 6 Năm 3\C# database\Kiểm Tra Cuối Kì\Quanlisanbong\QuanLiSanBong\obj\Debug\QuanLiSanBong.exe
+C:\Users\ASUS\Documents\Học kì 6 Năm 3\C# database\Kiểm Tra Cuối Kì\Quanlisanbong\QuanLiSanBong\obj\Debug\QuanLiSanBong.pdb
+C:\Users\ASUS\Documents\Học kì 6 Năm 3\C# database\Kiểm Tra Cuối Kì\Quanlisanbong\QuanLiSanBong\obj\Debug\QuanLiSanBong.Form2.resources
+C:\Users\ASUS\Documents\Học kì 6 Năm 3\C# database\Kiểm Tra Cuối Kì\Quanlisanbong\QuanLiSanBong\obj\Debug\QuanLiSanBong.Form3.resources
+C:\Users\ASUS\Documents\Học kì 6 Năm 3\C# database\Kiểm Tra Cuối Kì\Quanlisanbong\QuanLiSanBong\obj\Debug\QuanLiSanBong.Form_Login.resources
