@@ -71,6 +71,7 @@ namespace QuanLiSanBong
             this.sânBóngToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tàiKhoảnToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.button6 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -143,7 +144,7 @@ namespace QuanLiSanBong
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(40, 258);
+            this.label3.Location = new System.Drawing.Point(41, 257);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(61, 17);
             this.label3.TabIndex = 9;
@@ -173,7 +174,7 @@ namespace QuanLiSanBong
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(90, 17);
             this.label5.TabIndex = 12;
-            this.label5.Text = "ID Đội bóng1";
+            this.label5.Text = "ID Đội bóng2";
             // 
             // textBox5
             // 
@@ -184,7 +185,7 @@ namespace QuanLiSanBong
             // 
             // textBox6
             // 
-            this.textBox6.Location = new System.Drawing.Point(528, 258);
+            this.textBox6.Location = new System.Drawing.Point(528, 249);
             this.textBox6.Name = "textBox6";
             this.textBox6.Size = new System.Drawing.Size(223, 22);
             this.textBox6.TabIndex = 14;
@@ -192,7 +193,7 @@ namespace QuanLiSanBong
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(486, 258);
+            this.label6.Location = new System.Drawing.Point(486, 252);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(36, 17);
             this.label6.TabIndex = 15;
@@ -318,15 +319,15 @@ namespace QuanLiSanBong
             // 
             // textBox9
             // 
-            this.textBox9.Location = new System.Drawing.Point(251, 258);
+            this.textBox9.Location = new System.Drawing.Point(251, 252);
             this.textBox9.Name = "textBox9";
-            this.textBox9.Size = new System.Drawing.Size(170, 22);
+            this.textBox9.Size = new System.Drawing.Size(212, 22);
             this.textBox9.TabIndex = 30;
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(215, 261);
+            this.label11.Location = new System.Drawing.Point(215, 252);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(30, 17);
             this.label11.TabIndex = 31;
@@ -335,10 +336,11 @@ namespace QuanLiSanBong
             // comboBox9
             // 
             this.comboBox9.FormattingEnabled = true;
-            this.comboBox9.Location = new System.Drawing.Point(119, 258);
+            this.comboBox9.Location = new System.Drawing.Point(118, 254);
             this.comboBox9.Name = "comboBox9";
             this.comboBox9.Size = new System.Drawing.Size(58, 24);
             this.comboBox9.TabIndex = 39;
+            this.comboBox9.SelectedIndexChanged += new System.EventHandler(this.comboBox9_SelectedIndexChanged);
             this.comboBox9.SelectedValueChanged += new System.EventHandler(this.comboBox9_SelectedValueChanged);
             // 
             // button5
@@ -434,11 +436,22 @@ namespace QuanLiSanBong
             this.reportToolStripMenuItem.Size = new System.Drawing.Size(81, 29);
             this.reportToolStripMenuItem.Text = "Report";
             // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(1172, 324);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(75, 23);
+            this.button6.TabIndex = 47;
+            this.button6.Text = "button6";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1508, 762);
+            this.Controls.Add(this.button6);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.splitter3);
             this.Controls.Add(this.splitter2);
@@ -531,6 +544,7 @@ namespace QuanLiSanBong
         private System.Windows.Forms.ToolStripMenuItem sânBóngToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem tàiKhoảnToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem reportToolStripMenuItem;
+        private System.Windows.Forms.Button button6;
     }
 }
 

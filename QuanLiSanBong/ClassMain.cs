@@ -10,6 +10,7 @@ namespace QuanLiSanBong
     class ClassMain
     {
         public static int Quyen;
+        public static string idSannho;
         public static NhanvienSB nvStatic;
         public static DatSan datSanstc;
     }

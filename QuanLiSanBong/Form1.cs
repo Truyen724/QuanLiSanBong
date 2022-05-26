@@ -97,8 +97,8 @@ namespace QuanLiSanBong
         {
             DateTime iDate = DateTime.Today;
             string strDate = iDate.ToString("yyyyMMdd");
-            string query = String.Format("select idDatsan, SoSan, Ngay, TimeStart, TimeEnd, Gia, SDT_Datsan,idDoibong1, Name  , phone, IdDoiBong2  from (select [DatSan].idDatsan, SoSan, Ngay, TimeStart, TimeEnd, Gia, SDT_Datsan, IdDoiBong1,  IdDoiBong2  from [DatSan] inner join [SanBanhNho] on DatSan.idSannho = SanBanhNho.idSannho  where [SanBanhNho].idSan = '{0}' ) as tb_show inner join DoiBong on [tb_show].IdDoiBong1 = [DoiBong].idDoibong", ClassMain.nvStatic.idSanbong);
-            string query2 = String.Format("select idDatsan, SoSan, Ngay, TimeStart, TimeEnd, Gia, SDT_Datsan,idDoibong1, tb.Name  as [Tên đội 1], tb.phone as[Liên hệ] , IdDoiBong2, [DoiBong].Name as  [Tên đội 2], [DoiBong].phone as[Liên hệ] from ({0}) as tb inner join [DoiBong]  on tb.IdDoiBong2 = [DoiBong].idDoibong", query);
+            string query = String.Format("select idDatsan,idSannho, SoSan, Ngay, TimeStart, TimeEnd, Gia, SDT_Datsan,idDoibong1, Name  , phone, IdDoiBong2  from (select [DatSan].idDatsan ,[DatSan].idSannho, SoSan, Ngay, TimeStart, TimeEnd, Gia, SDT_Datsan, IdDoiBong1,  IdDoiBong2  from [DatSan] inner join [SanBanhNho] on DatSan.idSannho = SanBanhNho.idSannho  where [SanBanhNho].idSan = '{0}' ) as tb_show inner join DoiBong on [tb_show].IdDoiBong1 = [DoiBong].idDoibong", ClassMain.nvStatic.idSanbong);
+            string query2 = String.Format("select idDatsan,idSannho, SoSan, Ngay, TimeStart, TimeEnd, Gia, SDT_Datsan,idDoibong1, tb.Name  as [Tên đội 1], tb.phone as[Liên hệ] , IdDoiBong2, [DoiBong].Name as  [Tên đội 2], [DoiBong].phone as[Liên hệ] from ({0}) as tb inner join [DoiBong]  on tb.IdDoiBong2 = [DoiBong].idDoibong Order by Ngay, TimeStart", query);
             conn.Open();
             SqlCommand com = new SqlCommand(query2, conn);
             com.CommandType = CommandType.Text;
@@ -123,7 +123,7 @@ namespace QuanLiSanBong
             //string query = String.Format("select idSan, DatSan.TenSan, SoSan, Ngay, TimeStart, TimeEnd, Gia, SDT_Datsan, TenDoi1, IdDoiBong1, TenDoi2, IdDoiBong2  from DatSan inner join NhanVienSanBong on DatSan.idSan = NhanVienSanBong.idSan where Ngay='{0}' and idSan = 2 ", strDate);
             //string query = "select idSan, DatSan.TenSan from DatSan inner join NhanVienSanBong on DatSan.idSan = NhanVienSanBong.idSan";
             string query = String.Format("select [DatSan].idSan, TenSan, SoSan, Ngay, TimeStart, TimeEnd, Gia, SDT_Datsan, TenDoi1, IdDoiBong1, TenDoi2, IdDoiBong2  from [DatSan] inner join [NhanVienSanBong] on DatSan.IdSan = NhanVienSanBong.IdSan  where [DatSan].Ngay = '{0}' Order by Ngay, TimeStart", strDate);
-
+ 
             SqlCommand com = new SqlCommand(query, conn);
             com.CommandType = CommandType.Text;
             SqlDataAdapter da = new SqlDataAdapter(com);
@@ -197,13 +197,13 @@ namespace QuanLiSanBong
                 if(row.Cells[0].Value.ToString()!="")
                 {
                     comboBox9.Text = row.Cells[1].Value.ToString();
-                    textBox4.Text = row.Cells[7].Value.ToString();
-                    textBox1.Text = row.Cells[8].Value.ToString();
-                    textBox5.Text = row.Cells[9].Value.ToString();
+                    textBox4.Text = row.Cells[8].Value.ToString();
+                    textBox1.Text = row.Cells[9].Value.ToString();
                     textBox2.Text = row.Cells[10].Value.ToString();
-                    textBox6.Text = row.Cells[6].Value.ToString();
+                    textBox5.Text = row.Cells[11].Value.ToString();
+                    textBox6.Text = row.Cells[7].Value.ToString();
                     //textBox9.Text = row.Cells[6].Value.ToString();
-                    string[] x = row.Cells[2].Value.ToString().Substring(0, 10).Split('/');
+                    string[] x = row.Cells[3].Value.ToString().Substring(0, 10).Split('/');
                     int day = 0, month = 0, year = 0;
                     try
                     {
@@ -216,13 +216,13 @@ namespace QuanLiSanBong
 
                     }
                     dateTimePicker2.Value = new DateTime(year, month, day);
-                    string[] y = row.Cells[3].Value.ToString().Split(':');
+                    string[] y = row.Cells[4].Value.ToString().Split(':');
 
                     comboBox1.SelectedIndex = comboBox1.FindStringExact(y[0]);
                     
 
                         comboBox3.SelectedIndex = comboBox3.FindStringExact(y[1]);
-                    string[] z = row.Cells[4].Value.ToString().Split(':');
+                    string[] z = row.Cells[5].Value.ToString().Split(':');
 
 
 
@@ -236,11 +236,10 @@ namespace QuanLiSanBong
                     string strDate = dateTimePicker2.Value.ToString("dd/MM/yyyy");
                     string start = comboBox1.Text + ":" + comboBox3.Text;
                     string end = comboBox2.Text + ":" + comboBox4.Text;
-                    //        public DatSan(String idDatSan, String idSanNho, String Ngay, String TimeStart, String TimeEnd, String Gia, String TenDoi1, String IdDoiBong1, String TenDoi2, String IdDoiBong2, String SDT_Datsan)
+                    //        public DatSan(String idDatSan, String idSanNho, String Ngay, String TimeStart, String TimeEnd, String Gia, String IdDoiBong1, String IdDoiBong2, String SDT_Datsan)
 
-                    ClassMain.datSanstc = new Object.DatSan(textBox7.Text, comboBox9.Text, strDate, start, end, textBox9.Text, textBox1.Text, textBox4.Text, textBox2.Text, textBox5.Text, textBox6.Text);
-                    
-
+                    ClassMain.datSanstc = new Object.DatSan(row.Cells[0].Value.ToString(), comboBox9.Text, strDate, start, end, textBox9.Text,  textBox4.Text, textBox5.Text, textBox6.Text);
+                    //MessageBox.Show(ClassMain.datSanstc.idDatSan +"  "+ ClassMain.datSanstc.idSanNho + "  " + ClassMain.datSanstc.ngay + "  " + ClassMain.datSanstc.timeStart + "  " + ClassMain.datSanstc.timeEnd + "  " + ClassMain.datSanstc.gia + "  " + ClassMain.datSanstc.IdDoiBong1 + "  " + ClassMain.datSanstc.IdDoiBong2 + "  " + ClassMain.datSanstc.sDT_Datsan);              
                     button2.Enabled = true;
                 }
                 //Đưa dữ liệu vào textbox
@@ -284,15 +283,16 @@ namespace QuanLiSanBong
             string strDate2 = iDate.ToString("dd/MM/yyyy");
             string start = comboBox1.Text + ":" + comboBox3.Text;
             string end = comboBox2.Text + ":" + comboBox4.Text;
-            
-            if(strDate2 == ClassMain.datSanstc.ngay & start==ClassMain.datSanstc.timeStart & end == ClassMain.datSanstc.timeEnd)
+            MessageBox.Show(start);
+            MessageBox.Show(end);
+            if (strDate2 == ClassMain.datSanstc.ngay & start == ClassMain.datSanstc.timeStart & end == ClassMain.datSanstc.timeEnd & ClassMain.idSannho == ClassMain.datSanstc.idSanNho)
             {
                 conn.Open();
-                String query2 = String.Format("UPDATE DatSan Set SoSan = '{0}',Ngay='{1}',TimeStart='{2}',TimeEnd='{3}',Gia='{4}',TenDoi1='{5}',IdDoiBong1='{6}',TenDoi2='{7}',IdDoiBong2='{8}', SDT_Datsan='{9}' where Ngay ='{1}' and TimeStart = '{2}'", comboBox9.Text, strDate, start, end, textBox9.Text, textBox1.Text, textBox4.Text, textBox2.Text, textBox5.Text, textBox6.Text);
+                String query2 = String.Format("UPDATE DatSan Set idSannho = '{0}',Ngay='{1}',TimeStart='{2}',TimeEnd='{3}',Gia='{4}',IdDoiBong1='{5}',IdDoiBong2='{6}', SDT_Datsan='{7}' where idDatsan ='{8}'", comboBox9.Text, strDate, start, end, textBox9.Text, textBox4.Text, textBox5.Text, textBox6.Text, ClassMain.datSanstc.idDatSan);
                 SqlCommand com2 = new SqlCommand(query2, conn);
                 com2.CommandType = CommandType.Text;
                 com2.ExecuteNonQuery();
-                MessageBox.Show("Update Thành Công 111");
+                MessageBox.Show("Update Thành Công");
                 button2.Enabled = false;
                 conn.Close();
             }
@@ -300,8 +300,13 @@ namespace QuanLiSanBong
             {
                
                 //string query = String.Format("select idSan, SoSan, Ngay, TimeStart, TimeEnd, Gia, SDT_Datsan, TenDoi1, IdDoiBong1, TenDoi2, IdDoiBong2  from DatSan where Ngay = '{3}'  idSan = 1 and (TimeStart<'{0}' and TimeEnd>'{0}') or (TimeStart<'{1}' and TimeEnd>'{1}')  ", "21:00", "22:00", strDate);
-                string query = String.Format("select [DatSan].idSan, TenSan, SoSan, Ngay, TimeStart, TimeEnd, Gia, SDT_Datsan, TenDoi1, IdDoiBong1, TenDoi2, IdDoiBong2  from [DatSan] inner join [NhanVienSanBong] on DatSan.IdSan = NhanVienSanBong.IdSan  where SoSan= '{4}' and [DatSan].IdSan = '{0}' and [DatSan].Ngay = '{1}' and ((TimeStart<='{2}' and TimeEnd>'{2}') or (TimeStart<'{3}' and TimeEnd>='{3}') or  (TimeStart>'{2}' and TimeEnd<'{3}')) Order by Ngay, TimeStart  ", ClassMain.nvStatic.idSanbong, strDate, start, end, comboBox9.Text);
+                //string query = String.Format("select [DatSan].idSan, TenSan, SoSan, Ngay, TimeStart, TimeEnd, Gia, SDT_Datsan, TenDoi1, IdDoiBong1, TenDoi2, IdDoiBong2  from [DatSan] inner join [NhanVienSanBong] on DatSan.IdSan = NhanVienSanBong.IdSan  where SoSan= '{4}' and [DatSan].IdSan = '{0}' and [DatSan].Ngay = '{1}' and ((TimeStart<='{2}' and TimeEnd>'{2}') or (TimeStart<'{3}' and TimeEnd>='{3}') or  (TimeStart>'{2}' and TimeEnd<'{3}')) Order by Ngay, TimeStart  ", ClassMain.nvStatic.idSanbong, strDate, start, end, comboBox9.Text);
                 //string query = String.Format("select [DatSan].idSan, TenSan, SoSan, Ngay, TimeStart, TimeEnd, Gia, SDT_Datsan, TenDoi1, IdDoiBong1, TenDoi2, IdDoiBong2  from [DatSan] inner join [NhanVienSanBong] on DatSan.IdSan = NhanVienSanBong.IdSan  where Ngay='{0}'  ", strDate);
+                //string query0 = String.Format("select idDatsan, SoSan, Ngay, TimeStart, TimeEnd, Gia, SDT_Datsan,idDoibong1, Name  , phone, IdDoiBong2  from (select [DatSan].idDatsan, SoSan, Ngay, TimeStart, TimeEnd, Gia, SDT_Datsan, IdDoiBong1,  IdDoiBong2  from [DatSan] inner join [SanBanhNho] on DatSan.idSannho = SanBanhNho.idSannho  where [SanBanhNho].idSan = '{0}' ) as tb_show inner join DoiBong on [tb_show].IdDoiBong1 = [DoiBong].idDoibong", ClassMain.nvStatic.idSanbong);
+                //string query = String.Format("select idDatsan, SoSan, Ngay, TimeStart, TimeEnd, Gia, SDT_Datsan,idDoibong1, tb.Name  as [Tên đội 1], tb.phone as[Liên hệ] , IdDoiBong2, [DoiBong].Name as  [Tên đội 2], [DoiBong].phone as[Liên hệ] from ({0}) as tb inner join [DoiBong]  on tb.IdDoiBong2 = [DoiBong].idDoibong where idSannho ='{1}'and [DatSan].Ngay = '{1}' and ((TimeStart<='{3}' and TimeEnd>'{3}') or (TimeStart<'{4}' and TimeEnd>='{4}') or  (TimeStart>'{3}' and TimeEnd<'{4}')) Order by Ngay, TimeStart ", query0, ClassMain.idSannho, strDate, start, end);
+                string query0 = String.Format("select idDatsan,idSannho, SoSan, Ngay, TimeStart, TimeEnd, Gia, SDT_Datsan,idDoibong1, Name  , phone, IdDoiBong2  from (select [DatSan].idDatsan ,[DatSan].idSannho, SoSan, Ngay, TimeStart, TimeEnd, Gia, SDT_Datsan, IdDoiBong1,  IdDoiBong2  from [DatSan] inner join [SanBanhNho] on DatSan.idSannho = SanBanhNho.idSannho  where [SanBanhNho].idSan = '{0}' ) as tb_show inner join DoiBong on [tb_show].IdDoiBong1 = [DoiBong].idDoibong", ClassMain.nvStatic.idSanbong);
+                string query = String.Format("select idDatsan,idSannho, SoSan, Ngay, TimeStart, TimeEnd, Gia, SDT_Datsan,idDoibong1, tb.Name  as [Tên đội 1], tb.phone as[Liên hệ] , IdDoiBong2, [DoiBong].Name as  [Tên đội 2], [DoiBong].phone as[Liên hệ] from ({0}) as tb inner join [DoiBong]  on tb.IdDoiBong2 = [DoiBong].idDoibong where idSannho ='{1}' and Ngay = '{2}' and ((TimeStart<='{3}' and TimeEnd>'{3}') or (TimeStart<'{4}' and TimeEnd>='{4}') or  (TimeStart>'{3}' and TimeEnd<'{4}')) Order by Ngay, TimeStart ", query0, ClassMain.idSannho, strDate, start, end);
+
                 conn.Open();
 
                 SqlCommand com = new SqlCommand(query, conn);
@@ -310,11 +315,12 @@ namespace QuanLiSanBong
                 DataTable dt = new DataTable();
                 da.Fill(dt);
                 dataGridView1.DataSource = dt;
+                
                 if(dataGridView1.Rows.Count == 0)
                 {
                     string[] x = ClassMain.datSanstc.ngay.Split('/');
                     string d = x[2] + x[1] + x[0];
-                    String query2 = String.Format("UPDATE DatSan Set SoSan = '{0}',Ngay='{1}',TimeStart='{2}',TimeEnd='{3}',Gia='{4}',TenDoi1='{5}',IdDoiBong1='{6}',TenDoi2='{7}',IdDoiBong2='{8}', SDT_Datsan='{9}' where Ngay ='{10}' and TimeStart = '{2}'", comboBox9.Text, strDate, start, end, textBox9.Text, textBox1.Text, textBox4.Text, textBox2.Text, textBox5.Text, textBox6.Text, d);
+                    String query2 = String.Format("UPDATE DatSan Set idSannho = '{0}',Ngay='{1}',TimeStart='{2}',TimeEnd='{3}',Gia='{4}',IdDoiBong1='{5}',IdDoiBong2='{6}', SDT_Datsan='{7}' where idDatsan ='{8}'", comboBox9.Text, strDate, start, end, textBox9.Text, textBox4.Text, textBox5.Text, textBox6.Text, ClassMain.datSanstc.idDatSan);
                     SqlCommand com2 = new SqlCommand(query2, conn);
                     com2.CommandType = CommandType.Text;
                     com2.ExecuteNonQuery();
@@ -322,7 +328,7 @@ namespace QuanLiSanBong
                     button2.Enabled = false;
                 }else if(dataGridView1.Rows.Count == 1 )
                 {
-                    string a = dataGridView1.Rows[0].Cells[3].Value.ToString().Substring(0,10);
+                    /*string a = dataGridView1.Rows[0].Cells[3].Value.ToString().Substring(0,10);
                     string b = dataGridView1.Rows[0].Cells[4].Value.ToString().Substring(0, 5);
                     string c = dataGridView1.Rows[0].Cells[5].Value.ToString().Substring(0, 5);
                     if(a == ClassMain.datSanstc.ngay & b== ClassMain.datSanstc.timeStart & c== ClassMain.datSanstc.timeEnd)
@@ -333,17 +339,32 @@ namespace QuanLiSanBong
                         com2.ExecuteNonQuery();
                         MessageBox.Show("Update Thành Công");
                         button2.Enabled = false;
-                    }
-                    MessageBox.Show(a +" "+ ClassMain.datSanstc.ngay + " " + b + " " + ClassMain.datSanstc.timeStart + c+ ClassMain.datSanstc.timeEnd);
+                    }*/
+                    if(dataGridView1.Rows[0].Cells[0].Value.ToString() == ClassMain.datSanstc.idDatSan)
+                    {
+                        string[] x = ClassMain.datSanstc.ngay.Split('/');
+                        string d = x[2] + x[1] + x[0];
+                        String query2 = String.Format("UPDATE DatSan Set idSannho = '{0}',Ngay='{1}',TimeStart='{2}',TimeEnd='{3}',Gia='{4}',IdDoiBong1='{5}',IdDoiBong2='{6}', SDT_Datsan='{7}' where idDatsan ='{8}'", comboBox9.Text, strDate, start, end, textBox9.Text, textBox4.Text, textBox5.Text, textBox6.Text, ClassMain.datSanstc.idDatSan);
+                        SqlCommand com2 = new SqlCommand(query2, conn);
+                        com2.CommandType = CommandType.Text;
+                        com2.ExecuteNonQuery();
+                        MessageBox.Show("Update Thành Công 333");
+                        button2.Enabled = false;
+                    }   
+                    else
+                    {
+                        MessageBox.Show("Bị Trùng Giờ, Mã lỗi 1");
+                    }    
+                    
                 }
                 else if (dataGridView1.Rows.Count > 1)
                 {
-                    MessageBox.Show("Bị Trùng Giờ");
+                    MessageBox.Show("Bị Trùng Giờ,  Mã lỗi 2");
                 }    
                     conn.Close();
 
             }
-            show();
+            
         }
 
         private void comboBox9_SelectedValueChanged(object sender, EventArgs e)
@@ -412,6 +433,47 @@ namespace QuanLiSanBong
         {
             Form3 r = new Form3();
             r.Show();
+        }
+
+        private void comboBox9_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            String query = String.Format("select idSannho from Sanbanhnho where idSan ='{1}' and SoSan ='{0}'", comboBox9.Text, ClassMain.nvStatic.idSanbong);
+            conn.Open();
+            SqlCommand com = new SqlCommand(query , conn);
+            using (DbDataReader reader = com.ExecuteReader())
+            {
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                       ClassMain.idSannho = reader.GetValue(0).ToString();
+                      
+                    }
+                    reader.Dispose();
+                }
+            }
+
+            conn.Close();
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            DateTime iDate = dateTimePicker2.Value;
+            string strDate = iDate.ToString("yyyyMMdd");
+            string strDate2 = iDate.ToString("dd/MM/yyyy");
+            string start = comboBox1.Text + ":" + comboBox3.Text;
+            string end = comboBox2.Text + ":" + comboBox4.Text;
+            string query0 = String.Format("select idDatsan,idSannho, SoSan, Ngay, TimeStart, TimeEnd, Gia, SDT_Datsan,idDoibong1, Name  , phone, IdDoiBong2  from (select [DatSan].idDatsan ,[DatSan].idSannho, SoSan, Ngay, TimeStart, TimeEnd, Gia, SDT_Datsan, IdDoiBong1,  IdDoiBong2  from [DatSan] inner join [SanBanhNho] on DatSan.idSannho = SanBanhNho.idSannho  where [SanBanhNho].idSan = '{0}' ) as tb_show inner join DoiBong on [tb_show].IdDoiBong1 = [DoiBong].idDoibong", ClassMain.nvStatic.idSanbong);
+            string query = String.Format("select idDatsan,idSannho, SoSan, Ngay, TimeStart, TimeEnd, Gia, SDT_Datsan,idDoibong1, tb.Name  as [Tên đội 1], tb.phone as[Liên hệ] , IdDoiBong2, [DoiBong].Name as  [Tên đội 2], [DoiBong].phone as[Liên hệ] from ({0}) as tb inner join [DoiBong]  on tb.IdDoiBong2 = [DoiBong].idDoibong where Ngay = '{2}'", query0, ClassMain.idSannho, strDate);
+            conn.Open();
+
+            SqlCommand com = new SqlCommand(query, conn);
+            com.CommandType = CommandType.Text;
+            SqlDataAdapter da = new SqlDataAdapter(com);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            dataGridView1.DataSource = dt;
+            conn.Close();
         }
     }
 }

@@ -15,11 +15,11 @@ namespace QuanLiSanBong.Object
         public String timeStart;
         public String timeEnd;
         public String gia;
-        public String tenDoi1;
-        public String tenDoi2;
+        public String IdDoiBong1;
+        public String IdDoiBong2;
         public String sDT_Datsan;
         public DatSan() { }
-        public DatSan(String idDatSan, String idSanNho, String Ngay, String TimeStart, String TimeEnd, String Gia, String TenDoi1, String IdDoiBong1, String TenDoi2, String IdDoiBong2, String SDT_Datsan)
+        public DatSan(String idDatSan, String idSanNho, String Ngay, String TimeStart, String TimeEnd, String Gia, String IdDoiBong1, String IdDoiBong2, String SDT_Datsan)
         {
             this.idDatSan = idDatSan;
             this.idSanNho = idSanNho;
@@ -27,10 +27,8 @@ namespace QuanLiSanBong.Object
             this.timeStart = TimeStart;
             this.timeEnd = TimeEnd;
             this.gia = Gia;
-            this.tenDoi1 = TenDoi1;
-            
-            this.tenDoi2 = TenDoi2;
-            
+            this.IdDoiBong1 = IdDoiBong1;          
+            this.IdDoiBong2 = IdDoiBong2;         
             this.sDT_Datsan = SDT_Datsan;
         }
 
