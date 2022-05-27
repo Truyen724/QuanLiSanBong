@@ -34,6 +34,7 @@ namespace QuanLiSanBong
             this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
             this.button1 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -71,7 +72,7 @@ namespace QuanLiSanBong
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(386, 148);
+            this.button1.Location = new System.Drawing.Point(292, 149);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(256, 55);
             this.button1.TabIndex = 4;
@@ -81,16 +82,26 @@ namespace QuanLiSanBong
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(847, 148);
+            this.textBox1.Location = new System.Drawing.Point(834, 168);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(100, 22);
             this.textBox1.TabIndex = 5;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(678, 168);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(116, 17);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "Tổng Doanh Thu";
             // 
             // Form_Report
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1122, 596);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.dateTimePicker2);
@@ -111,5 +122,6 @@ namespace QuanLiSanBong
         private System.Windows.Forms.DateTimePicker dateTimePicker2;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label1;
     }
 }
