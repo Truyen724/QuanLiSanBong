@@ -75,7 +75,7 @@ namespace QuanLiSanBong
             comboBox9.DropDownStyle = ComboBoxStyle.DropDownList;
             conn.Close();
         }
-        DataTable dt;
+        
         string ConnetionString = "server=DESKTOP-O41267U;database=119001358_21_01;integrated security=true";
         SqlConnection conn = new SqlConnection();
         public void ketnoi()
@@ -488,6 +488,12 @@ namespace QuanLiSanBong
             da.Fill(dt);
             dataGridView1.DataSource = dt;
             conn.Close();
+        }
+
+        private void reportToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form_Report f = new Form_Report();
+            f.Show();
         }
     }
 }
