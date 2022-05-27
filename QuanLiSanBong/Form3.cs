@@ -140,7 +140,7 @@ namespace QuanLiSanBong
         private void button5_Click(object sender, EventArgs e)
         {
             int max = 0;
-            for(int j = 0;j<=20;)
+            
             foreach (int i in comboBox1.Items)
             {
                 try
@@ -155,9 +155,9 @@ namespace QuanLiSanBong
 
                     }
             }
-            if(max == 10)
-            {
-                string query2 = String.Format("Insert into SanBanhNho VALUES ('{0}','{1}','{2}','{3}')", ClassMain.nvStatic.idSanbong, max + 1, 0, 0);
+ 
+
+                string query2 = String.Format("Insert into SanBanhNho VALUES ((select max(idSannho) from SanBanhNho)+1,'{0}','{1}','{2}','{3}')", ClassMain.nvStatic.idSanbong, max + 1, 0, 0);
                 conn.Open();
                 SqlCommand com2 = new SqlCommand(query2, conn);
                 com2.CommandType = CommandType.Text;
@@ -165,7 +165,8 @@ namespace QuanLiSanBong
                 MessageBox.Show("Thêm thành công, Hãy chỉnh sửa");
                 this.Close();
                 conn.Close();
-            }    
+
+            
             
         }
 
