@@ -200,10 +200,10 @@ namespace QuanLiSanBong
                 DataGridViewRow row = this.dataGridView1.Rows[e.RowIndex];
                 if(row.Cells[0].Value.ToString()!="")
                 {
-                    comboBox9.Text = row.Cells[1].Value.ToString();
+                    
                     textBox4.Text = row.Cells[8].Value.ToString();
                     textBox1.Text = row.Cells[9].Value.ToString();
-                    textBox2.Text = row.Cells[10].Value.ToString();
+                    textBox2.Text = row.Cells[12].Value.ToString();
                     textBox5.Text = row.Cells[11].Value.ToString();
                     textBox6.Text = row.Cells[7].Value.ToString();
                     //textBox9.Text = row.Cells[6].Value.ToString();
@@ -245,6 +245,7 @@ namespace QuanLiSanBong
                     ClassMain.datSanstc = new Object.DatSan(row.Cells[0].Value.ToString(), comboBox9.Text, strDate, start, end, textBox9.Text,  textBox4.Text, textBox5.Text, textBox6.Text);
                     //MessageBox.Show(ClassMain.datSanstc.idDatSan +"  "+ ClassMain.datSanstc.idSanNho + "  " + ClassMain.datSanstc.ngay + "  " + ClassMain.datSanstc.timeStart + "  " + ClassMain.datSanstc.timeEnd + "  " + ClassMain.datSanstc.gia + "  " + ClassMain.datSanstc.IdDoiBong1 + "  " + ClassMain.datSanstc.IdDoiBong2 + "  " + ClassMain.datSanstc.sDT_Datsan);              
                     button2.Enabled = true;
+                    comboBox9.Text = row.Cells[1].Value.ToString();
                 }
                 //Đưa dữ liệu vào textbox
 
@@ -291,8 +292,7 @@ namespace QuanLiSanBong
             string strDate2 = iDate.ToString("dd/MM/yyyy");
             string start = comboBox1.Text + ":" + comboBox3.Text;
             string end = comboBox2.Text + ":" + comboBox4.Text;
-            MessageBox.Show(start);
-            MessageBox.Show(end);
+
             if (strDate2 == ClassMain.datSanstc.ngay & start == ClassMain.datSanstc.timeStart & end == ClassMain.datSanstc.timeEnd & ClassMain.idSannho == ClassMain.datSanstc.idSanNho)
             {
                 conn.Open();
@@ -385,7 +385,7 @@ namespace QuanLiSanBong
 
         private void comboBox9_SelectedValueChanged(object sender, EventArgs e)
         {
-            conn.Open();
+            /*conn.Open();
             String query = String.Format("Select GiaSan, UuDai from SanBanhNho  where idSan = '{0}'", ClassMain.nvStatic.id);
             SqlCommand com = new SqlCommand();
             com.Connection = conn;
@@ -404,7 +404,7 @@ namespace QuanLiSanBong
                     reader.Dispose();
                 }
             }
-            conn.Close();
+            conn.Close();*/
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -451,6 +451,7 @@ namespace QuanLiSanBong
 
         private void comboBox9_SelectedIndexChanged(object sender, EventArgs e)
         {
+            int idSannho = 0;
             String query = String.Format("select idSannho from Sanbanhnho where idSan ='{1}' and SoSan ='{0}'", comboBox9.Text, ClassMain.nvStatic.idSanbong);
             conn.Open();
             SqlCommand com = new SqlCommand(query , conn);
@@ -461,12 +462,61 @@ namespace QuanLiSanBong
                     while (reader.Read())
                     {
                        ClassMain.idSannho = reader.GetValue(0).ToString();
-                      
+                        try
+                        {
+                            idSannho = unchecked((int)Convert.ToInt64(reader.GetValue(0)));
+                        }
+                        catch
+                        {
+
+                        }
                     }
                     reader.Dispose();
                 }
             }
 
+            String query2 = String.Format("Select GiaSan, UuDai from SanBanhNho  where idSannho = '{0}'", idSannho.ToString());
+            
+            SqlCommand com2 = new SqlCommand(query2,conn);
+
+            using (DbDataReader reader = com2.ExecuteReader())
+            {
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        int giasan = unchecked((int)Convert.ToInt64(reader.GetValue(0)));
+                        
+                        int Uudai = unchecked((int)Convert.ToInt64(reader.GetValue(1)));
+
+                        DateTime c = dateTimePicker2.Value;
+                        DateTime d = dateTimePicker2.Value;
+                        try
+                        {
+                            int h = Int32.Parse(comboBox1.Text);
+                            int m = Int32.Parse(comboBox3.Text);
+                            DateTime a = new DateTime(c.Year, c.Month, c.Day, h, m, 0);
+                            int h2 = Int32.Parse(comboBox2.Text);
+                            int m2 = Int32.Parse(comboBox4.Text);
+                            DateTime b = new DateTime(d.Year, d.Month, d.Day, h2, m2, 0);
+                            TimeSpan interval = b.Subtract(a);
+
+                            int sophut = interval.Hours * 60 + interval.Minutes;
+                            double t1 = (giasan / 60.0) * sophut;
+                            double x = t1 - Uudai * t1 / 100.0;
+                            textBox9.Text = x.ToString();
+                        }
+                        catch
+                        {
+
+                        }
+                        
+
+                        
+                    }
+                    reader.Dispose();
+                }
+            }
             conn.Close();
         }
 
