@@ -71,6 +71,7 @@ namespace QuanLiSanBong
             this.sânBóngToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tàiKhoảnToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.độiBóngToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -408,6 +409,7 @@ namespace QuanLiSanBong
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.sânBóngToolStripMenuItem,
             this.tàiKhoảnToolStripMenuItem,
+            this.độiBóngToolStripMenuItem,
             this.reportToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(9, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -435,6 +437,13 @@ namespace QuanLiSanBong
             this.reportToolStripMenuItem.Size = new System.Drawing.Size(81, 29);
             this.reportToolStripMenuItem.Text = "Report";
             this.reportToolStripMenuItem.Click += new System.EventHandler(this.reportToolStripMenuItem_Click);
+            // 
+            // độiBóngToolStripMenuItem
+            // 
+            this.độiBóngToolStripMenuItem.Name = "độiBóngToolStripMenuItem";
+            this.độiBóngToolStripMenuItem.Size = new System.Drawing.Size(104, 29);
+            this.độiBóngToolStripMenuItem.Text = "Đội Bóng";
+            this.độiBóngToolStripMenuItem.Click += new System.EventHandler(this.độiBóngToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -533,6 +542,7 @@ namespace QuanLiSanBong
         private System.Windows.Forms.ToolStripMenuItem sânBóngToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem tàiKhoảnToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem reportToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem độiBóngToolStripMenuItem;
     }
 }
 

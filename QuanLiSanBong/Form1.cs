@@ -545,5 +545,11 @@ namespace QuanLiSanBong
             Form_Report f = new Form_Report();
             f.Show();
         }
+
+        private void độiBóngToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form4 f = new Form4();
+            f.Show();
+        }
     }
 }

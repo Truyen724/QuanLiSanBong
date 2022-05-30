@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using QuanLiSanBong.Object;
-
+using System.Data.SqlClient;
 namespace QuanLiSanBong
 {
     class ClassMain
@@ -13,5 +13,8 @@ namespace QuanLiSanBong
         public static string idSannho;
         public static NhanvienSB nvStatic;
         public static DatSan datSanstc;
+        public static string ConnetionString = "server=DESKTOP-O41267U;database=119001358_21_01;integrated security=true";
+        
+        
     }
 }
