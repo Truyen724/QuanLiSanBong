@@ -65,8 +65,7 @@ namespace QuanLiSanBong
             
             DateTime iDate1 = dateTimePicker1.Value;
             DateTime iDate2 = dateTimePicker2.Value;
-            try
-            {
+
                 int a = Int32.Parse(iDate1.ToString("yyyyMMdd"));
                 int b = Int32.Parse(iDate2.ToString("yyyyMMdd"));
                 if(b<a)
@@ -79,10 +78,21 @@ namespace QuanLiSanBong
                     String strdate2 = iDate2.ToString("yyyy-MM-dd");
                     //String strdate1 = iDate1.ToString("ddMMyyyy");
                     //String strdate2 = iDate2.ToString("ddMMyyyy");
-                    
+                    string query ="";
+                    string query2 = "";
                     DataTable dt = new DataTable();
-                    string query = String.Format("select idDatsan,idSannho, SoSan, Ngay, TimeStart, TimeEnd, Gia, SDT_Datsan,idDoibong1, Name  , phone, IdDoiBong2  from (select [DatSan].idDatsan ,[DatSan].idSannho, SoSan, Ngay, TimeStart, TimeEnd, Gia, SDT_Datsan, IdDoiBong1,  IdDoiBong2  from [DatSan] inner join [SanBanhNho] on DatSan.idSannho = SanBanhNho.idSannho  where [SanBanhNho].idSan = '{0}' ) as tb_show inner join DoiBong on [tb_show].IdDoiBong1 = [DoiBong].idDoibong", ClassMain.nvStatic.idSanbong);
-                    string query2 = String.Format("select idDatsan,idSannho, SoSan, Ngay, TimeStart, TimeEnd, Gia, SDT_Datsan,idDoibong1, tb.Name  as [Tên đội 1], tb.phone as[Liên hệ] , IdDoiBong2, [DoiBong].Name as  [Tên đội 2], [DoiBong].phone as[Liên hệ] from ({0}) as tb inner join [DoiBong]  on tb.IdDoiBong2 = [DoiBong].idDoibong  where CAST(Ngay as date) >= '{1}' and CAST(Ngay as date) <= '{2}' ", query, strdate1, strdate2);
+                   if(comboBox1.SelectedIndex == -1)
+                    {
+                        query = String.Format("select idDatsan,idSannho, SoSan, Ngay, TimeStart, TimeEnd, Gia, SDT_Datsan,idDoibong1, Name  , phone, IdDoiBong2  from (select [DatSan].idDatsan ,[DatSan].idSannho, SoSan, Ngay, TimeStart, TimeEnd, Gia, SDT_Datsan, IdDoiBong1,  IdDoiBong2  from [DatSan] inner join [SanBanhNho] on DatSan.idSannho = SanBanhNho.idSannho  where [SanBanhNho].idSan = '{0}' ) as tb_show inner join DoiBong on [tb_show].IdDoiBong1 = [DoiBong].idDoibong", ClassMain.nvStatic.idSanbong);
+                        query2 = String.Format("select idDatsan,idSannho, SoSan, Ngay, TimeStart, TimeEnd, Gia, SDT_Datsan,idDoibong1, tb.Name  as [Tên đội 1], tb.phone as[Liên hệ D1] , IdDoiBong2, [DoiBong].Name as  [Tên đội 2], [DoiBong].phone as[Liên hệ] from ({0}) as tb inner join [DoiBong]  on tb.IdDoiBong2 = [DoiBong].idDoibong  where CAST(Ngay as date) >= '{1}' and CAST(Ngay as date) <= '{2}' ", query, strdate1, strdate2);
+
+                    }
+                   else
+                    {
+                        query = String.Format("select idDatsan,idSannho, SoSan, Ngay, TimeStart, TimeEnd, Gia, SDT_Datsan,idDoibong1, Name  , phone, IdDoiBong2  from (select [DatSan].idDatsan ,[DatSan].idSannho, SoSan, Ngay, TimeStart, TimeEnd, Gia, SDT_Datsan, IdDoiBong1,  IdDoiBong2  from [DatSan] inner join [SanBanhNho] on DatSan.idSannho = SanBanhNho.idSannho  where [SanBanhNho].idSan = '{0}' ) as tb_show inner join DoiBong on [tb_show].IdDoiBong1 = [DoiBong].idDoibong", ClassMain.nvStatic.idSanbong);
+                        query2 = String.Format("select idDatsan,idSannho, SoSan, Ngay, TimeStart, TimeEnd, Gia, SDT_Datsan,idDoibong1, tb.Name  as [Tên đội 1], tb.phone  as[Liên hệ D1] , IdDoiBong2, [DoiBong].Name as  [Tên đội 2], [DoiBong].phone as [Liên hệ] from ({0}) as tb inner join [DoiBong]  on tb.IdDoiBong2 = [DoiBong].idDoibong  where CAST(Ngay as date) >= '{1}' and CAST(Ngay as date) <= '{2}' and ( IdDoiBong1 = '{3}' or IdDoiBong2 = '{3}')", query, strdate1, strdate2,comboBox1.SelectedItem.ToString());
+
+                    }
                     
                     conn.Open();
 
@@ -93,10 +103,10 @@ namespace QuanLiSanBong
                     da.Fill(dt);
                     dataGridView1.DataSource = dt;
                     int sum = 0; 
-                        string query3 = String.Format("select sum(Gia) from Datsan",query2);
+                        string query3 = String.Format("select sum(Gia) from ({0}) as tbs",query2);
                     SqlCommand com2 = new SqlCommand(query3, conn);
-
-                    using (DbDataReader reader = com2.ExecuteReader())
+                
+                using (DbDataReader reader = com2.ExecuteReader())
                     {
                         if (reader.HasRows)
                         {
@@ -107,28 +117,30 @@ namespace QuanLiSanBong
                             reader.Dispose();
                         }
                     }
-                    foreach (DataRow dr in dataGridView1.Rows)
-                    {
-                        try {
-                            sum = Int32.Parse(dr["Gia"].ToString()) + sum;
-                        }
-                        catch
-                        {
 
-                        }
-
-                        
-                    }
-                    textBox1.Text = sum.ToString();
+                   
                     conn.Close();
 
                 }    
-            }
-            catch
-            {
-
-            }
             
+
+
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            comboBox2.SelectedIndex = comboBox1.SelectedIndex;
+        }
+
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            comboBox1.SelectedIndex = comboBox2.SelectedIndex;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            comboBox1.SelectedIndex = -1;
+            comboBox2.SelectedIndex = -1;
         }
     }
 }
