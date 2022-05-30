@@ -35,6 +35,9 @@ namespace QuanLiSanBong
             this.button1 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -72,9 +75,9 @@ namespace QuanLiSanBong
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(292, 149);
+            this.button1.Location = new System.Drawing.Point(728, 102);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(256, 55);
+            this.button1.Size = new System.Drawing.Size(242, 55);
             this.button1.TabIndex = 4;
             this.button1.Text = "Xem thống kê";
             this.button1.UseVisualStyleBackColor = true;
@@ -82,7 +85,7 @@ namespace QuanLiSanBong
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(834, 168);
+            this.textBox1.Location = new System.Drawing.Point(501, 190);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(100, 22);
             this.textBox1.TabIndex = 5;
@@ -90,17 +93,45 @@ namespace QuanLiSanBong
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(678, 168);
+            this.label1.Location = new System.Drawing.Point(345, 190);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(116, 17);
             this.label1.TabIndex = 6;
             this.label1.Text = "Tổng Doanh Thu";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(25, 121);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(118, 17);
+            this.label2.TabIndex = 8;
+            this.label2.Text = "Nhập ID đội bóng";
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(175, 118);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(109, 24);
+            this.comboBox1.TabIndex = 9;
+            // 
+            // comboBox2
+            // 
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Location = new System.Drawing.Point(348, 118);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(109, 24);
+            this.comboBox2.TabIndex = 10;
             // 
             // Form_Report
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1122, 596);
+            this.Controls.Add(this.comboBox2);
+            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.button1);
@@ -123,5 +154,8 @@ namespace QuanLiSanBong
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox comboBox2;
     }
 }

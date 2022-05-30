@@ -97,6 +97,7 @@ namespace QuanLiSanBong
             this.button1.TabIndex = 8;
             this.button1.Text = "Xóa Đội Bóng";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
@@ -106,6 +107,7 @@ namespace QuanLiSanBong
             this.button2.TabIndex = 9;
             this.button2.Text = "Update Đội Bóng";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // label5
             // 
@@ -172,6 +174,7 @@ namespace QuanLiSanBong
             this.button3.TabIndex = 20;
             this.button3.Text = "Thên Đội Bóng";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // comboBox2
             // 
@@ -180,6 +183,7 @@ namespace QuanLiSanBong
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(99, 24);
             this.comboBox2.TabIndex = 22;
+            this.comboBox2.SelectedIndexChanged += new System.EventHandler(this.comboBox2_SelectedIndexChanged);
             // 
             // comboBox1
             // 

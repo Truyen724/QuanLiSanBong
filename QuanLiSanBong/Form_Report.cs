@@ -33,8 +33,32 @@ namespace QuanLiSanBong
                 MessageBox.Show("Kết nối thất bại");
             }
 
+            LayData();
 
-            
+
+        }
+        public void LayData()
+        {
+            String query = String.Format("Select idDoibong, Name from DoiBong");
+            SqlCommand com = new SqlCommand();
+            com.Connection = conn;
+            conn.Open();
+            com.CommandText = query;
+            using (DbDataReader reader = com.ExecuteReader())
+            {
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        int iddoibong = unchecked((int)Convert.ToInt64(reader.GetValue(0)));
+                        comboBox1.Items.Add(iddoibong);
+                        String ten = reader.GetValue(1).ToString();
+                        comboBox2.Items.Add(ten.Trim());
+                    }
+                    reader.Dispose();
+                }
+            }
+            conn.Close();
         }
         private void button1_Click(object sender, EventArgs e)
         {

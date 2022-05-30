@@ -69,7 +69,7 @@ namespace QuanLiSanBong
 
         private void comboBox1_SelectedValueChanged(object sender, EventArgs e)
         {
-            String query = String.Format("Select * from DoiBong where idDoibong = '{0}'", comboBox1.Text);
+            String query = String.Format("Select idDoibong,phone, Adress,Name,Matkhau from DoiBong where idDoibong = '{0}'", comboBox1.Text);
             SqlCommand com = new SqlCommand();
             com.Connection = conn;
             conn.Open();
@@ -89,6 +89,54 @@ namespace QuanLiSanBong
                 }
             }
             conn.Close();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            String query = String.Format("UPDATE DoiBong " +
+                "set phone ='{1}',Adress =N'{2}', Name = N'{3}'" +
+                " where idDoibong = '{0}'", comboBox1.Text, textBox2.Text, textBox3.Text, comboBox2.Text);
+            SqlCommand com = new SqlCommand(query, conn);
+            conn.Open();
+            com.ExecuteNonQuery();
+            MessageBox.Show("Thanh Cong");
+            conn.Close();
+            comboBox1.Items.Clear();
+            comboBox2.Items.Clear();
+            LayData();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+            String query = String.Format("Delete from DoiBong where idDoibong = '{0}'", comboBox1.Text);
+            SqlCommand com = new SqlCommand(query, conn);
+            conn.Open();
+            com.ExecuteNonQuery();
+            MessageBox.Show("Thanh Cong");
+            conn.Close();
+            comboBox1.Items.Clear();
+            comboBox2.Items.Clear();
+            LayData();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            String query = String.Format("INSERT INTO DoiBong(idDoibong, phone, Adress, Name, Matkhau) values ((Select max(idDoibong)+1 from DoiBong), '{0}',N'{1}',N'{2}',1)",  textBox8.Text, textBox7.Text,textBox9.Text);
+            SqlCommand com = new SqlCommand(query, conn);
+            conn.Open();
+            com.ExecuteNonQuery();
+            MessageBox.Show("Thanh Cong");
+            conn.Close();
+            comboBox1.Items.Clear();
+            comboBox2.Items.Clear();
+            LayData();
+        }
+
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int selectedIndex = comboBox2.SelectedIndex;
+            comboBox1.SelectedIndex = selectedIndex;
         }
     }
 }
