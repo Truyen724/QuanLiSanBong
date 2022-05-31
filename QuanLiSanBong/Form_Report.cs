@@ -19,7 +19,7 @@ namespace QuanLiSanBong
             InitializeComponent();
             ketnoi();
         }
-        string ConnetionString = "server=DESKTOP-O41267U;database=119001358_21_01;integrated security=true";
+        string ConnetionString = ClassMain.ConnetionString;
         SqlConnection conn = new SqlConnection();
         public void ketnoi()
         {
@@ -141,6 +141,7 @@ namespace QuanLiSanBong
         {
             comboBox1.SelectedIndex = -1;
             comboBox2.SelectedIndex = -1;
+            
         }
     }
 }

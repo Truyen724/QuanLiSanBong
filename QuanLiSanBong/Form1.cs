@@ -76,7 +76,7 @@ namespace QuanLiSanBong
             conn.Close();
         }
         
-        string ConnetionString = "server=DESKTOP-O41267U;database=119001358_21_01;integrated security=true";
+        string ConnetionString = ClassMain.ConnetionString;
         SqlConnection conn = new SqlConnection();
         public void ketnoi()
         {
@@ -90,8 +90,34 @@ namespace QuanLiSanBong
                 MessageBox.Show("Kết nối thất bại");
             }
 
-
+            LayData();
             show();
+            
+        }
+        public void LayData()
+        {
+            String query = String.Format("Select idDoibong, Name from DoiBong");
+            SqlCommand com = new SqlCommand();
+            com.Connection = conn;
+            conn.Open();
+            com.CommandText = query;
+            using (DbDataReader reader = com.ExecuteReader())
+            {
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        int iddoibong = unchecked((int)Convert.ToInt64(reader.GetValue(0)));
+                        comboBox5.Items.Add(iddoibong);
+                        comboBox6.Items.Add(iddoibong);
+                        String ten = reader.GetValue(1).ToString();
+                        comboBox7.Items.Add(ten.Trim());
+                        comboBox8.Items.Add(ten.Trim());
+                    }
+                    reader.Dispose();
+                }
+            }
+            conn.Close();
         }
         public void show()
         {
@@ -168,7 +194,7 @@ namespace QuanLiSanBong
             {
 
                     string query2 = String.Format("Insert into DatSan (idDatsan, idSannho, Ngay, TimeStart, TimeEnd, Gia, IdDoiBong1,IdDoiBong2, SDT_Datsan)" +
-                    " VALUES  ((Select max(idDatsan)+1 from DatSan),'{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}')", ClassMain.idSannho, strDate, start, end, textBox9.Text, textBox4.Text, textBox5.Text, textBox6.Text);
+                    " VALUES  ((Select max(idDatsan)+1 from DatSan),'{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}')", ClassMain.idSannho, strDate, start, end, textBox9.Text, comboBox5.Text, comboBox6.Text, textBox6.Text);
                     SqlCommand com2 = new SqlCommand(query2, conn);
                     com2.CommandType = CommandType.Text;
                     com2.ExecuteNonQuery();
@@ -201,10 +227,14 @@ namespace QuanLiSanBong
                 if(row.Cells[0].Value.ToString()!="")
                 {
                     
-                    textBox4.Text = row.Cells[8].Value.ToString();
-                    textBox1.Text = row.Cells[9].Value.ToString();
-                    textBox2.Text = row.Cells[12].Value.ToString();
-                    textBox5.Text = row.Cells[11].Value.ToString();
+                    //textBox4.Text = row.Cells[8].Value.ToString();
+                    comboBox5.SelectedIndex=comboBox5.FindStringExact(row.Cells[8].Value.ToString());
+                    //textBox1.Text = row.Cells[9].Value.ToString();
+                    //textBox2.Text = row.Cells[12].Value.ToString();
+
+                    //textBox5.Text = row.Cells[11].Value.ToString();
+                    comboBox6.SelectedIndex=comboBox6.FindStringExact(row.Cells[11].Value.ToString());
+
                     textBox6.Text = row.Cells[7].Value.ToString();
                     //textBox9.Text = row.Cells[6].Value.ToString();
                     string[] x = row.Cells[3].Value.ToString().Substring(0, 10).Split('/');
@@ -242,7 +272,7 @@ namespace QuanLiSanBong
                     string end = comboBox2.Text + ":" + comboBox4.Text;
                     //        public DatSan(String idDatSan, String idSanNho, String Ngay, String TimeStart, String TimeEnd, String Gia, String IdDoiBong1, String IdDoiBong2, String SDT_Datsan)
 
-                    ClassMain.datSanstc = new Object.DatSan(row.Cells[0].Value.ToString(), comboBox9.Text, strDate, start, end, textBox9.Text,  textBox4.Text, textBox5.Text, textBox6.Text);
+                    ClassMain.datSanstc = new Object.DatSan(row.Cells[0].Value.ToString(), comboBox9.Text, strDate, start, end, textBox9.Text,  comboBox5.Text, comboBox6.Text, textBox6.Text);
                     //MessageBox.Show(ClassMain.datSanstc.idDatSan +"  "+ ClassMain.datSanstc.idSanNho + "  " + ClassMain.datSanstc.ngay + "  " + ClassMain.datSanstc.timeStart + "  " + ClassMain.datSanstc.timeEnd + "  " + ClassMain.datSanstc.gia + "  " + ClassMain.datSanstc.IdDoiBong1 + "  " + ClassMain.datSanstc.IdDoiBong2 + "  " + ClassMain.datSanstc.sDT_Datsan);              
                     button2.Enabled = true;
                     comboBox9.Text = row.Cells[1].Value.ToString();
@@ -296,7 +326,7 @@ namespace QuanLiSanBong
             if (strDate2 == ClassMain.datSanstc.ngay & start == ClassMain.datSanstc.timeStart & end == ClassMain.datSanstc.timeEnd & ClassMain.idSannho == ClassMain.datSanstc.idSanNho)
             {
                 conn.Open();
-                String query2 = String.Format("UPDATE DatSan Set idSannho = '{0}',Ngay='{1}',TimeStart='{2}',TimeEnd='{3}',Gia='{4}',IdDoiBong1='{5}',IdDoiBong2='{6}', SDT_Datsan='{7}' where idDatsan ='{8}'", comboBox9.Text, strDate, start, end, textBox9.Text, textBox4.Text, textBox5.Text, textBox6.Text, ClassMain.datSanstc.idDatSan);
+                String query2 = String.Format("UPDATE DatSan Set idSannho = '{0}',Ngay='{1}',TimeStart='{2}',TimeEnd='{3}',Gia='{4}',IdDoiBong1='{5}',IdDoiBong2='{6}', SDT_Datsan='{7}' where idDatsan ='{8}'", comboBox9.Text, strDate, start, end, textBox9.Text, comboBox5.Text, comboBox6.Text, textBox6.Text, ClassMain.datSanstc.idDatSan);
                 SqlCommand com2 = new SqlCommand(query2, conn);
                 com2.CommandType = CommandType.Text;
                 com2.ExecuteNonQuery();
@@ -328,7 +358,7 @@ namespace QuanLiSanBong
                 {
                     string[] x = ClassMain.datSanstc.ngay.Split('/');
                     string d = x[2] + x[1] + x[0];
-                    String query2 = String.Format("UPDATE DatSan Set idSannho = '{0}',Ngay='{1}',TimeStart='{2}',TimeEnd='{3}',Gia='{4}',IdDoiBong1='{5}',IdDoiBong2='{6}', SDT_Datsan='{7}' where idDatsan ='{8}'", comboBox9.Text, strDate, start, end, textBox9.Text, textBox4.Text, textBox5.Text, textBox6.Text, ClassMain.datSanstc.idDatSan);
+                    String query2 = String.Format("UPDATE DatSan Set idSannho = '{0}',Ngay='{1}',TimeStart='{2}',TimeEnd='{3}',Gia='{4}',IdDoiBong1='{5}',IdDoiBong2='{6}', SDT_Datsan='{7}' where idDatsan ='{8}'", comboBox9.Text, strDate, start, end, textBox9.Text, comboBox5.Text, comboBox6.Text, textBox6.Text, ClassMain.datSanstc.idDatSan);
                     SqlCommand com2 = new SqlCommand(query2, conn);
                     com2.CommandType = CommandType.Text;
                     com2.ExecuteNonQuery();
@@ -353,7 +383,7 @@ namespace QuanLiSanBong
                     {
                         string[] x = ClassMain.datSanstc.ngay.Split('/');
                         string d = x[2] + x[1] + x[0];
-                        String query2 = String.Format("UPDATE DatSan Set idSannho = '{0}',Ngay='{1}',TimeStart='{2}',TimeEnd='{3}',Gia='{4}',IdDoiBong1='{5}',IdDoiBong2='{6}', SDT_Datsan='{7}' where idDatsan ='{8}'", comboBox9.Text, strDate, start, end, textBox9.Text, textBox4.Text, textBox5.Text, textBox6.Text, ClassMain.datSanstc.idDatSan);
+                        String query2 = String.Format("UPDATE DatSan Set idSannho = '{0}',Ngay='{1}',TimeStart='{2}',TimeEnd='{3}',Gia='{4}',IdDoiBong1='{5}',IdDoiBong2='{6}', SDT_Datsan='{7}' where idDatsan ='{8}'", comboBox9.Text, strDate, start, end, textBox9.Text, comboBox5.Text, comboBox6.Text, textBox6.Text, ClassMain.datSanstc.idDatSan);
                         SqlCommand com2 = new SqlCommand(query2, conn);
                         com2.CommandType = CommandType.Text;
                         com2.ExecuteNonQuery();
@@ -550,6 +580,26 @@ namespace QuanLiSanBong
         {
             Form4 f = new Form4();
             f.Show();
+        }
+
+        private void comboBox5_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            comboBox7.SelectedIndex = comboBox5.SelectedIndex;
+        }
+
+        private void comboBox7_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            comboBox5.SelectedIndex = comboBox7.SelectedIndex;
+        }
+
+        private void comboBox6_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            comboBox8.SelectedIndex = comboBox6.SelectedIndex;
+        }
+
+        private void comboBox8_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            comboBox6.SelectedIndex = comboBox8.SelectedIndex;
         }
     }
 }

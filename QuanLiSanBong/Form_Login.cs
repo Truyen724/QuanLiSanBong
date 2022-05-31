@@ -14,14 +14,16 @@ namespace QuanLiSanBong
 {
     public partial class Form_Login : Form
     {
+        
         public Form_Login()
         {
             InitializeComponent();
             ketnoi();
             textBox1.Text = "0394511955";
             textBox2.Text = "ntt2432001";
+            MessageBox.Show(ClassMain.ConnetionString);
         }
-        string ConnetionString = "server=DESKTOP-O41267U;database=119001358_21_01;integrated security=true";
+        string ConnetionString = ClassMain.ConnetionString;
         SqlConnection conn = new SqlConnection();
         public void ketnoi()
         {
@@ -92,6 +94,11 @@ namespace QuanLiSanBong
 
             }
             
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

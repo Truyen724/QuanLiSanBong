@@ -66,7 +66,7 @@ namespace QuanLiSanBong
             conn.Close();
         }
         
-        string ConnetionString = "server=DESKTOP-O41267U;database=119001358_21_01;integrated security=true";
+        string ConnetionString = ClassMain.ConnetionString;
         SqlConnection conn = new SqlConnection();
         public void ketnoi()
         {

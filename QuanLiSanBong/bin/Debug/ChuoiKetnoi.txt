@@ -1,0 +1,1 @@
+server=DESKTOP-O41267U;database=119001358_21_01;integrated security=true

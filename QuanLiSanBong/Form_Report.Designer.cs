@@ -133,7 +133,7 @@ namespace QuanLiSanBong
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(111, 29);
             this.button2.TabIndex = 11;
-            this.button2.Text = "Xem của tất cả";
+            this.button2.Text = "Hủy chọn sân";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
