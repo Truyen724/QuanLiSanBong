@@ -56,6 +56,7 @@ namespace QuanLiSanBong
             textBox7.Text = ClassMain.nvStatic.idSanbong.ToString();
             textBox8.Text = ClassMain.nvStatic.tenSan;
             conn.Open();
+            //String query = String.Format("Select SoSan from SanBanhNho where idSan = '{0}' ", ClassMain.nvStatic.idSanbong);
             String query = String.Format("Select SoSan from SanBanhNho where idSan = '{0}' ", ClassMain.nvStatic.idSanbong);
             SqlCommand com = new SqlCommand();
             com.Connection = conn;
@@ -148,15 +149,17 @@ namespace QuanLiSanBong
             string strDate = iDate.ToString("yyyyMMdd");
             //string query = String.Format("select idSan, DatSan.TenSan, SoSan, Ngay, TimeStart, TimeEnd, Gia, SDT_Datsan, TenDoi1, IdDoiBong1, TenDoi2, IdDoiBong2  from DatSan inner join NhanVienSanBong on DatSan.idSan = NhanVienSanBong.idSan where Ngay='{0}' and idSan = 2 ", strDate);
             //string query = "select idSan, DatSan.TenSan from DatSan inner join NhanVienSanBong on DatSan.idSan = NhanVienSanBong.idSan";
-            string query = String.Format("select [DatSan].idSan, TenSan, SoSan, Ngay, TimeStart, TimeEnd, Gia, SDT_Datsan, TenDoi1, IdDoiBong1, TenDoi2, IdDoiBong2  from [DatSan] inner join [NhanVienSanBong] on DatSan.IdSan = NhanVienSanBong.IdSan  where [DatSan].Ngay = '{0}' Order by Ngay, TimeStart", strDate);
- 
-            SqlCommand com = new SqlCommand(query, conn);
+            string query = String.Format("select idDatsan,idSannho, SoSan, Ngay, TimeStart, TimeEnd, Gia, SDT_Datsan,idDoibong1, Name  , phone, IdDoiBong2  from (select [DatSan].idDatsan ,[DatSan].idSannho, SoSan, Ngay, TimeStart, TimeEnd, Gia, SDT_Datsan, IdDoiBong1,  IdDoiBong2  from [DatSan] inner join [SanBanhNho] on DatSan.idSannho = SanBanhNho.idSannho  where [SanBanhNho].idSan = '{0}' ) as tb_show inner join DoiBong on [tb_show].IdDoiBong1 = [DoiBong].idDoibong", ClassMain.nvStatic.idSanbong);
+            string query2 = String.Format("select idDatsan,idSannho, SoSan, Ngay, TimeStart, TimeEnd, Gia, SDT_Datsan,idDoibong1, tb.Name  as [Tên đội 1], tb.phone as[Liên hệ] , IdDoiBong2, [DoiBong].Name as  [Tên đội 2], [DoiBong].phone as[Liên hệ] from ({0}) as tb inner join [DoiBong]  on tb.IdDoiBong2 = [DoiBong].idDoibong where CAST(Ngay as date) = '{1}' Order by Ngay DESC, TimeStart DESC", query, strDate);
+
+            SqlCommand com = new SqlCommand(query2, conn);
             com.CommandType = CommandType.Text;
             SqlDataAdapter da = new SqlDataAdapter(com);
             DataTable dt = new DataTable();
             da.Fill(dt);
             conn.Close();
             dataGridView1.DataSource = dt;
+            //show();
         }
 
         private void label3_Click(object sender, EventArgs e)

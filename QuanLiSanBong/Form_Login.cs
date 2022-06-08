@@ -72,6 +72,10 @@ namespace QuanLiSanBong
                    
 
                     }
+                    else
+                    {
+                        MessageBox.Show("Mật khẩu sai");
+                    }    
                 }
                 String query2 = String.Format("Select * from DoiBong where phone = '{0}' and Matkhau = '{1}'", textBox1.Text, textBox2.Text);
                 com.CommandText = query2;
@@ -87,6 +91,10 @@ namespace QuanLiSanBong
                         
                         this.Close();
                         
+                    }
+                    else
+                    {
+                        MessageBox.Show("Mật khẩu sai");
                     }
                 }
 
